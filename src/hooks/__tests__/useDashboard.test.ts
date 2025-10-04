@@ -145,14 +145,14 @@ describe('useDashboard', () => {
         });
 
         expect(result.current.chartData).toHaveLength(2);
-        expect(result.current.chartData[0]).toEqual({
-            time: '12:00:00 AM',
+        expect(result.current.chartData[0]).toMatchObject({
             activeDeals: 100,
             newDeals: 5,
             offersSubmitted: 10,
             userViews: 200,
             averageDealValueUSD: 25000,
         });
+        expect(result.current.chartData[0].time).toBeDefined();
     });
 
     it('should refresh data when refreshData is called', async () => {

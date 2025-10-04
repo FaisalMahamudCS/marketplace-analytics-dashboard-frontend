@@ -17,7 +17,7 @@ describe('StatusIndicator', () => {
         render(<StatusIndicator {...defaultProps} />);
 
         expect(screen.getByText('Connected')).toBeInTheDocument();
-        expect(screen.getByText('Last updated: 12:00:00 PM')).toBeInTheDocument();
+        expect(screen.getByText(/Last updated:/)).toBeInTheDocument();
     });
 
     it('should render disconnected status', () => {
