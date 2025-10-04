@@ -51,19 +51,19 @@ export const DataTable = ({ data, loading }: DataTableProps) => {
                     {new Date(response.createdAt).toLocaleString()}
                   </td>
                   <td className="p-2 text-sm font-medium">
-                    {response.data.json.activeDeals}
+                    {response.activeDeals}
                   </td>
                   <td className="p-2 text-sm">
-                    {response.data.json.newDeals}
+                    {response.newDeals}
                   </td>
                   <td className="p-2 text-sm">
-                    ${response.data.json.averageDealValueUSD.toLocaleString()}
+                    ${response.averageDealValueUSD.toLocaleString()}
                   </td>
                   <td className="p-2 text-sm">
-                    {response.data.json.offersSubmitted}
+                    {response.offersSubmitted}
                   </td>
                   <td className="p-2 text-sm">
-                    {response.data.json.userViews}
+                    {response.userViews}
                   </td>
                 </tr>
               ))}

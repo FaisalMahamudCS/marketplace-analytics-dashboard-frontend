@@ -12,7 +12,8 @@ export const useDashboard = () => {
     error: null,
     lastUpdated: null,
   });
-
+  console.log("state", state);
+  // Fetch initial data from API
   const fetchData = useCallback(async () => {
     try {
       setState(prev => ({ ...prev, loading: true, error: null }));
@@ -32,36 +33,54 @@ export const useDashboard = () => {
     }
   }, []);
 
-  const addNewResponse = useCallback((newResponse: ApiResponse) => {
+  // Add new response(s) to state safely
+  const addNewResponse = useCallback((payload: any) => {
+    console.log('New response payload:', payload);
+
+    const newResponses: ApiResponse[] = Array.isArray(payload.data)
+      ? payload.data
+      : [payload.data];
     setState(prev => ({
       ...prev,
-      responses: [newResponse, ...prev.responses],
+      responses: {
+        ...prev.responses, // keep other fields like total/page
+        data: [
+          ...newResponses,
+          ...(Array.isArray(prev.responses?.data) ? prev.responses.data : []),
+        ],
+      },
       lastUpdated: new Date(),
     }));
   }, []);
 
+  // WebSocket setup
   useEffect(() => {
     fetchData();
 
-    // Set up WebSocket connection
     const socket = socketService.connect();
 
-    socket.on('new_response', addNewResponse);
+    socket.on('latestResponse', addNewResponse);
+    socket.on('newResponse', addNewResponse);
 
     return () => {
-      socket.off('new_response');
+      socket.off('latestResponse', addNewResponse);
+      socket.off('newResponse', addNewResponse);
       socketService.disconnect();
     };
   }, [fetchData, addNewResponse]);
 
-  const chartData: ChartDataPoint[] = state?.responses?.length>0? state?.responses?.map(response => ({
-    time: new Date(response.createdAt).toLocaleTimeString(),
-    activeDeals: response.data.json.activeDeals,
-    newDeals: response.data.json.newDeals,
-    offersSubmitted: response.data.json.offersSubmitted,
-    userViews: response.data.json.userViews,
-    averageDealValueUSD: response.data.json.averageDealValueUSD,
-  })) : [];
+  // Map responses to chart-friendly data
+  const chartData: ChartDataPoint[] =
+    Array.isArray(state.responses) && state.responses.length > 0
+      ? state.responses.map(response => ({
+        time: new Date(response.createdAt).toLocaleTimeString(),
+        activeDeals: response.data?.activeDeals ?? 0,
+        newDeals: response.data?.newDeals ?? 0,
+        offersSubmitted: response.data?.offersSubmitted ?? 0,
+        userViews: response.data?.userViews ?? 0,
+        averageDealValueUSD: response.data?.averageDealValueUSD ?? 0,
+      }))
+      : [];
 
   const refreshData = useCallback(() => {
     fetchData();

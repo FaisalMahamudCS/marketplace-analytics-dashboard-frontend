@@ -17,7 +17,7 @@ export default function Home() {
     isConnected,
     lastUpdated
   } = useDashboard();
-
+console.log(responses);
   if (error) {
     return (
       <div className="min-h-screen p-4 bg-gray-50">
@@ -53,11 +53,11 @@ export default function Home() {
         <MarketplaceChart data={chartData} loading={loading} />
 
         <div className="block md:hidden">
-          <DataCards data={responses} loading={loading} />
+          <DataCards data={responses.data} loading={loading} />
         </div>
 
         <div className="hidden md:block">
-          <DataTable data={responses} loading={loading} />
+          <DataTable data={responses.data} loading={loading} />
         </div>
       </div>
     </div>

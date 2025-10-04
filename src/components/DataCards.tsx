@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { ApiResponse } from '@/types/marketplace';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +9,7 @@ interface DataCardsProps {
 }
 
 export const DataCards = ({ data, loading }: DataCardsProps) => {
+  console.log("card",data);
   if (loading) {
     return (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -29,39 +30,40 @@ export const DataCards = ({ data, loading }: DataCardsProps) => {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {data?.length>0 && data?.slice(0, 6).map((response, index) => (
-        <Card key={response.id || index} className="hover:shadow-md transition-shadow">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">
-              {new Date(response.createdAt).toLocaleString()}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-500">Active Deals:</span>
-              <span className="text-sm font-medium">{response.data.json.activeDeals}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-500">New Deals:</span>
-              <span className="text-sm font-medium">{response.data.json.newDeals}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-500">Avg Value:</span>
-              <span className="text-sm font-medium">
-                ${response.data.json.averageDealValueUSD.toLocaleString()}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-500">Offers:</span>
-              <span className="text-sm font-medium">{response.data.json.offersSubmitted}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-gray-500">Views:</span>
-              <span className="text-sm font-medium">{response.data.json.userViews}</span>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+      {data &&
+        data.map((response, index) => (
+          <Card key={response._id || index} className="hover:shadow-md transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600">
+                {new Date(response.createdAt).toLocaleString()}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-500">Active Deals:</span>
+                <span className="text-sm font-medium">{response.activeDeals}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-500">New Deals:</span>
+                <span className="text-sm font-medium">{response.newDeals}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-500">Avg Value:</span>
+                <span className="text-sm font-medium">
+                  ${response.averageDealValueUSD.toLocaleString()}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-500">Offers:</span>
+                <span className="text-sm font-medium">{response.offersSubmitted}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-500">Views:</span>
+                <span className="text-sm font-medium">{response.userViews}</span>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
     </div>
   );
 };
