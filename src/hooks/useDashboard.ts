@@ -54,14 +54,14 @@ export const useDashboard = () => {
     };
   }, [fetchData, addNewResponse]);
 
-  const chartData: ChartDataPoint[] = state.responses.map(response => ({
+  const chartData: ChartDataPoint[] = state?.responses?.length>0? state?.responses?.map(response => ({
     time: new Date(response.createdAt).toLocaleTimeString(),
     activeDeals: response.data.json.activeDeals,
     newDeals: response.data.json.newDeals,
     offersSubmitted: response.data.json.offersSubmitted,
     userViews: response.data.json.userViews,
     averageDealValueUSD: response.data.json.averageDealValueUSD,
-  }));
+  })) : [];
 
   const refreshData = useCallback(() => {
     fetchData();

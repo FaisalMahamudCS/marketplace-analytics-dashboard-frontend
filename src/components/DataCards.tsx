@@ -29,7 +29,7 @@ export const DataCards = ({ data, loading }: DataCardsProps) => {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {data.slice(0, 6).map((response, index) => (
+      {data?.length>0 && data?.slice(0, 6).map((response, index) => (
         <Card key={response.id || index} className="hover:shadow-md transition-shadow">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
