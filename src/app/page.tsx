@@ -8,14 +8,14 @@ import { StatusIndicator } from '@/components/StatusIndicator';
 import { ErrorMessage } from '@/components/ui/loading';
 
 export default function Home() {
-  const { 
-    responses, 
-    loading, 
-    error, 
-    chartData, 
-    refreshData, 
-    isConnected, 
-    lastUpdated 
+  const {
+    responses,
+    loading,
+    error,
+    chartData,
+    refreshData,
+    isConnected,
+    lastUpdated
   } = useDashboard();
 
   if (error) {
@@ -43,7 +43,7 @@ export default function Home() {
           </p>
         </header>
 
-        <StatusIndicator 
+        <StatusIndicator
           isConnected={isConnected}
           lastUpdated={lastUpdated}
           onRefresh={refreshData}
