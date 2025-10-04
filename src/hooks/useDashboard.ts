@@ -1,9 +1,12 @@
 'use client';
 
+import { isAny } from './../../node_modules/tailwind-merge/src/lib/validators';
+
 import { useState, useEffect, useCallback } from 'react';
 import { ApiResponse, DashboardState, ChartDataPoint } from '@/types/marketplace';
 import { apiService } from '@/lib/api';
 import { socketService } from '@/lib/socket';
+import { isArray } from 'util';
 
 export const useDashboard = () => {
   const [state, setState] = useState<DashboardState>({
@@ -70,15 +73,16 @@ export const useDashboard = () => {
   }, [fetchData, addNewResponse]);
 
   // Map responses to chart-friendly data
+  console.log("state.responses", Array.isArray(state.responses),state.responses);
   const chartData: ChartDataPoint[] =
-    Array.isArray(state.responses) && state.responses.length > 0
-      ? state.responses.map(response => ({
+    Array.isArray(state.responses?.data) && state.responses?.data?.length > 0
+      ? state.responses?.data?.map(response => ({
         time: new Date(response.createdAt).toLocaleTimeString(),
-        activeDeals: response.data?.activeDeals ?? 0,
-        newDeals: response.data?.newDeals ?? 0,
-        offersSubmitted: response.data?.offersSubmitted ?? 0,
-        userViews: response.data?.userViews ?? 0,
-        averageDealValueUSD: response.data?.averageDealValueUSD ?? 0,
+        activeDeals: response?.activeDeals ?? 0,
+        newDeals: response?.newDeals ?? 0,
+        offersSubmitted: response?.offersSubmitted ?? 0,
+        userViews: response?.userViews ?? 0,
+        averageDealValueUSD: response?.averageDealValueUSD ?? 0,
       }))
       : [];
 

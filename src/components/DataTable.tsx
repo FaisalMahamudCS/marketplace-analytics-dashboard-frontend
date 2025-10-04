@@ -13,7 +13,7 @@ export const DataTable = ({ data, loading }: DataTableProps) => {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Recent Data</CardTitle>
+          <CardTitle>Realtime Data</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
