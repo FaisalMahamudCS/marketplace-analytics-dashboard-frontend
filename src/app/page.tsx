@@ -6,6 +6,12 @@ import { DataTable } from '@/components/DataTable';
 import { DataCards } from '@/components/DataCards';
 import { StatusIndicator } from '@/components/StatusIndicator';
 import { ErrorMessage } from '@/components/ui/loading';
+import { ApiResponse } from '@/types/marketplace';
+
+// Helper function to get responses data safely (same as in useDashboard)
+const getResponsesData = (responses: ApiResponse[] | { data: ApiResponse[] }): ApiResponse[] => {
+  return Array.isArray(responses) ? responses : responses.data;
+};
 
 export default function Home() {
   const {
@@ -17,13 +23,13 @@ export default function Home() {
     isConnected,
     lastUpdated
   } = useDashboard();
-console.log(responses);
+  console.log(responses);
   if (error) {
     return (
-      <div className="min-h-screen p-4 bg-gray-50">
+      <div className="min-h-screen p-4 bg-background">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-2xl font-bold text-center mb-6">
-            BizScout Marketplace Dashboard
+          <h1 className="text-2xl font-bold text-center mb-6 text-foreground">
+            Marketplace Dashboard
           </h1>
           <ErrorMessage message={error} onRetry={refreshData} />
         </div>
@@ -32,13 +38,13 @@ console.log(responses);
   }
 
   return (
-    <div className="min-h-screen p-4 bg-gray-50">
+    <div className="min-h-screen p-4 bg-background">
       <div className="max-w-7xl mx-auto space-y-6">
         <header className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-             Marketplace Dashboard
+          <h1 className="text-3xl font-bold text-foreground mb-2">
+            Marketplace Dashboard
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Real-time marketplace analytics and monitoring
           </p>
         </header>
@@ -53,11 +59,11 @@ console.log(responses);
         <MarketplaceChart data={chartData} loading={loading} />
 
         <div className="block md:hidden">
-          <DataCards data={responses.data} loading={loading} />
+          <DataCards data={getResponsesData(responses)} loading={loading} />
         </div>
 
         <div className="hidden md:block">
-          <DataTable data={responses.data} loading={loading} />
+          <DataTable data={getResponsesData(responses)} loading={loading} />
         </div>
       </div>
     </div>

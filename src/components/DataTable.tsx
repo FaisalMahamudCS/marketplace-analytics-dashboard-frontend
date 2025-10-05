@@ -11,14 +11,14 @@ interface DataTableProps {
 export const DataTable = ({ data, loading }: DataTableProps) => {
   if (loading) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Realtime Data</CardTitle>
+      <Card className="border-border/50 shadow-sm">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-semibold text-foreground">Realtime Data</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-12 bg-gray-200 rounded animate-pulse"></div>
+              <div key={i} className="h-12 bg-muted rounded animate-pulse"></div>
             ))}
           </div>
         </CardContent>
@@ -27,42 +27,42 @@ export const DataTable = ({ data, loading }: DataTableProps) => {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Recent Data</CardTitle>
+    <Card className="border-border/50 shadow-sm">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-xl font-semibold text-foreground">Analytical Data</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
-              <tr className="border-b">
-                <th className="text-left p-2 font-medium text-sm text-gray-600">Time</th>
-                <th className="text-left p-2 font-medium text-sm text-gray-600">Active Deals</th>
-                <th className="text-left p-2 font-medium text-sm text-gray-600">New Deals</th>
-                <th className="text-left p-2 font-medium text-sm text-gray-600">Avg Deal Value</th>
-                <th className="text-left p-2 font-medium text-sm text-gray-600">Offers</th>
-                <th className="text-left p-2 font-medium text-sm text-gray-600">User Views</th>
+              <tr className="border-b border-border">
+                <th className="text-left p-3 font-semibold text-sm text-muted-foreground">Time</th>
+                <th className="text-left p-3 font-semibold text-sm text-muted-foreground">Active Deals</th>
+                <th className="text-left p-3 font-semibold text-sm text-muted-foreground">New Deals</th>
+                <th className="text-left p-3 font-semibold text-sm text-muted-foreground">Avg Deal Value</th>
+                <th className="text-left p-3 font-semibold text-sm text-muted-foreground">Offers</th>
+                <th className="text-left p-3 font-semibold text-sm text-muted-foreground">User Views</th>
               </tr>
             </thead>
             <tbody>
               {data?.length > 0 && data?.map((response, index) => (
-                <tr key={response.id || index} className="border-b hover:bg-gray-50">
-                  <td className="p-2 text-sm">
+                <tr key={response.id || index} className="border-b border-border hover:bg-accent/50 transition-colors">
+                  <td className="p-3 text-sm text-foreground">
                     {new Date(response.createdAt).toLocaleString()}
                   </td>
-                  <td className="p-2 text-sm font-medium">
+                  <td className="p-3 text-sm font-semibold text-foreground">
                     {response.activeDeals}
                   </td>
-                  <td className="p-2 text-sm">
+                  <td className="p-3 text-sm text-foreground">
                     {response.newDeals}
                   </td>
-                  <td className="p-2 text-sm">
+                  <td className="p-3 text-sm text-foreground">
                     ${response.averageDealValueUSD.toLocaleString()}
                   </td>
-                  <td className="p-2 text-sm">
+                  <td className="p-3 text-sm text-foreground">
                     {response.offersSubmitted}
                   </td>
-                  <td className="p-2 text-sm">
+                  <td className="p-3 text-sm text-foreground">
                     {response.userViews}
                   </td>
                 </tr>

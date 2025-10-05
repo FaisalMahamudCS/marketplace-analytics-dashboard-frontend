@@ -4,7 +4,7 @@ class SocketService {
   private socket: Socket | null = null;
   private url: string;
 
-  constructor(url: string = 'http://localhost:3000') {
+  constructor(url: string = process.env.API_BASE_URL || 'https://marketplace-analytics-backend-1.onrender.com') {
     this.url = url;
   }
 

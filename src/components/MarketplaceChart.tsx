@@ -21,9 +21,9 @@ interface MarketplaceChartProps {
 export const MarketplaceChart = ({ data, loading }: MarketplaceChartProps) => {
     if (loading) {
         return (
-            <Card>
-                <CardHeader>
-                    <CardTitle>Marketplace Trends</CardTitle>
+            <Card className="border-border/50 shadow-sm">
+                <CardHeader className="pb-4">
+                    <CardTitle className="text-xl font-semibold text-foreground">Marketplace Trends</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="h-[300px] flex items-center justify-center">
@@ -35,65 +35,72 @@ export const MarketplaceChart = ({ data, loading }: MarketplaceChartProps) => {
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Marketplace Trends</CardTitle>
+        <Card className="border-border/50 shadow-sm">
+            <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-semibold text-foreground">Marketplace Trends</CardTitle>
             </CardHeader>
             <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                         <XAxis
                             dataKey="time"
-                            tick={{ fontSize: 12 }}
+                            tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }}
                             angle={-45}
                             textAnchor="end"
                             height={60}
                         />
-                        <YAxis tick={{ fontSize: 12 }} />
+                        <YAxis tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }} />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: 'white',
-                                border: '1px solid #e5e7eb',
+                                backgroundColor: 'var(--card)',
+                                border: '1px solid var(--border)',
                                 borderRadius: '8px',
                                 fontSize: '12px',
+                                color: 'var(--foreground)',
+                                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                             }}
                         />
                         <Legend />
                         <Line
                             type="monotone"
                             dataKey="activeDeals"
-                            stroke="#4F46E5"
-                            strokeWidth={2}
+                            stroke="var(--chart-1)"
+                            strokeWidth={2.5}
                             name="Active Deals"
+                            dot={{ fill: 'var(--chart-1)', strokeWidth: 2, r: 4 }}
                         />
                         <Line
                             type="monotone"
                             dataKey="newDeals"
-                            stroke="#16A34A"
-                            strokeWidth={2}
+                            stroke="var(--chart-2)"
+                            strokeWidth={2.5}
                             name="New Deals"
+                            dot={{ fill: 'var(--chart-2)', strokeWidth: 2, r: 4 }}
                         />
                         <Line
                             type="monotone"
                             dataKey="offersSubmitted"
-                            stroke="#F59E0B"
-                            strokeWidth={2}
+                            stroke="var(--chart-3)"
+                            strokeWidth={2.5}
                             name="Offers Submitted"
+                            dot={{ fill: 'var(--chart-3)', strokeWidth: 2, r: 4 }}
                         />
                         <Line
                             type="monotone"
                             dataKey="userViews"
-                            stroke="#EF4444"
-                            strokeWidth={2}
+                            stroke="var(--chart-4)"
+                            strokeWidth={2.5}
                             name="User Views"
+                            dot={{ fill: 'var(--chart-4)', strokeWidth: 2, r: 4 }}
                         />
                         <Line
                             type="monotone"
                             dataKey="averageDealValueUSD"
-                            stroke="#8B5CF6"
-                            strokeWidth={2}
+                            stroke="var(--chart-5)"
+                            strokeWidth={2.5}
                             name="Avg Deal Value ($)"
+                            dot={{ fill: 'var(--chart-5)', strokeWidth: 2, r: 4 }}
                         />
                     </LineChart>
                 </ResponsiveContainer>

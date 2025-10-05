@@ -2,12 +2,29 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { ApiResponse, DashboardState, ChartDataPoint } from '@/types/marketplace';
+
+interface DashboardHookState {
+  responses: ApiResponse[] | { data: ApiResponse[] };
+  loading: boolean;
+  error: string | null;
+  lastUpdated: Date | null;
+}
+
+// Type guard to check if responses is an array
+const isResponsesArray = (responses: ApiResponse[] | { data: ApiResponse[] }): responses is ApiResponse[] => {
+  return Array.isArray(responses);
+};
+
+// Helper function to get responses data safely
+const getResponsesData = (responses: ApiResponse[] | { data: ApiResponse[] }): ApiResponse[] => {
+  return isResponsesArray(responses) ? responses : responses.data;
+};
 import { apiService } from '@/lib/api';
 import { socketService } from '@/lib/socket';
 
 export const useDashboard = () => {
-  const [state, setState] = useState<DashboardState>({
-    responses: { data: [] },
+  const [state, setState] = useState<DashboardHookState>({
+    responses: [],
     loading: true,
     error: null,
     lastUpdated: null,
@@ -20,7 +37,7 @@ export const useDashboard = () => {
       const responses = await apiService.fetchResponses();
       setState(prev => ({
         ...prev,
-        responses: { data: responses },
+        responses,
         loading: false,
         lastUpdated: new Date(),
       }));
@@ -33,7 +50,6 @@ export const useDashboard = () => {
     }
   }, []);
 
-  // Add new response(s) to state safely
   const addNewResponse = useCallback((payload: { data: ApiResponse | ApiResponse[] }) => {
     console.log('New response payload:', payload);
 
@@ -43,10 +59,10 @@ export const useDashboard = () => {
     setState(prev => ({
       ...prev,
       responses: {
-        ...prev.responses, // keep other fields like total/page
+        ...(isResponsesArray(prev.responses) ? {} : prev.responses),
         data: [
           ...newResponses,
-          ...(Array.isArray(prev.responses?.data) ? prev.responses.data : []),
+          ...getResponsesData(prev.responses),
         ],
       },
       lastUpdated: new Date(),
@@ -70,10 +86,9 @@ export const useDashboard = () => {
   }, [fetchData, addNewResponse]);
 
   // Map responses to chart-friendly data
-  console.log("state.responses", Array.isArray(state.responses?.data), state.responses);
-  const chartData: ChartDataPoint[] =
-    Array.isArray(state.responses?.data) && state.responses?.data?.length > 0
-      ? state.responses?.data?.map(response => ({
+  const responsesData = getResponsesData(state.responses);
+  const chartData: ChartDataPoint[] = responsesData.length > 0
+    ? responsesData.map((response: ApiResponse) => ({
         time: new Date(response.createdAt).toLocaleTimeString(),
         activeDeals: response?.activeDeals ?? 0,
         newDeals: response?.newDeals ?? 0,
@@ -81,7 +96,7 @@ export const useDashboard = () => {
         userViews: response?.userViews ?? 0,
         averageDealValueUSD: response?.averageDealValueUSD ?? 0,
       }))
-      : [];
+    : [];
 
   const refreshData = useCallback(() => {
     fetchData();

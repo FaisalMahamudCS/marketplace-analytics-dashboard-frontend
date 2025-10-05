@@ -14,12 +14,12 @@ export const DataCards = ({ data, loading }: DataCardsProps) => {
     return (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {[...Array(6)].map((_, i) => (
-          <Card key={i}>
+          <Card key={i} className="border-border/50 shadow-sm">
             <CardContent className="p-4">
-              <div className="space-y-2">
-                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2"></div>
+              <div className="space-y-3">
+                <div className="h-4 bg-muted rounded animate-pulse"></div>
+                <div className="h-4 bg-muted rounded animate-pulse w-3/4"></div>
+                <div className="h-4 bg-muted rounded animate-pulse w-1/2"></div>
               </div>
             </CardContent>
           </Card>
@@ -30,36 +30,36 @@ export const DataCards = ({ data, loading }: DataCardsProps) => {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {data &&
+      { data.length > 0 &&
         data.map((response, index) => (
-          <Card key={response.id || index} className="hover:shadow-md transition-shadow">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600">
+          <Card key={response.id || index} className="hover:shadow-lg transition-all duration-200 border-border/50 shadow-sm hover:border-primary/20">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
                 {new Date(response.createdAt).toLocaleString()}
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-500">Active Deals:</span>
-                <span className="text-sm font-medium">{response.activeDeals}</span>
+            <CardContent className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Active Deals:</span>
+                <span className="text-sm font-semibold text-foreground">{response.activeDeals}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-500">New Deals:</span>
-                <span className="text-sm font-medium">{response.newDeals}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">New Deals:</span>
+                <span className="text-sm font-semibold text-foreground">{response.newDeals}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-500">Avg Value:</span>
-                <span className="text-sm font-medium">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Avg Value:</span>
+                <span className="text-sm font-semibold text-foreground">
                   ${response.averageDealValueUSD.toLocaleString()}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-500">Offers:</span>
-                <span className="text-sm font-medium">{response.offersSubmitted}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Offers:</span>
+                <span className="text-sm font-semibold text-foreground">{response.offersSubmitted}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-500">Views:</span>
-                <span className="text-sm font-medium">{response.userViews}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Views:</span>
+                <span className="text-sm font-semibold text-foreground">{response.userViews}</span>
               </div>
             </CardContent>
           </Card>
