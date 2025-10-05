@@ -45,7 +45,7 @@ export const DataTable = ({ data, loading }: DataTableProps) => {
               </tr>
             </thead>
             <tbody>
-              {data?.length>0 && data?.map((response, index) => (
+              {data?.length > 0 && data?.map((response, index) => (
                 <tr key={response.id || index} className="border-b hover:bg-gray-50">
                   <td className="p-2 text-sm">
                     {new Date(response.createdAt).toLocaleString()}

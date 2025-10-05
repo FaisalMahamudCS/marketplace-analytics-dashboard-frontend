@@ -1,9 +1,10 @@
 import { ApiResponse } from '@/types/marketplace';
 import { apiService } from '@/lib/api';
+import axios from 'axios';
 
 // Mock axios
 jest.mock('axios');
-const mockedAxios = jest.mocked(require('axios'));
+const mockedAxios = jest.mocked(axios);
 
 describe('ApiService', () => {
     beforeEach(() => {
@@ -16,16 +17,11 @@ describe('ApiService', () => {
                 {
                     id: '1',
                     createdAt: '2024-01-01T00:00:00Z',
-                    data: {
-                        json: {
-                            timestamp: 1704067200000,
-                            activeDeals: 100,
-                            newDeals: 5,
-                            averageDealValueUSD: 25000,
-                            offersSubmitted: 10,
-                            userViews: 200,
-                        },
-                    },
+                    activeDeals: 100,
+                    newDeals: 5,
+                    averageDealValueUSD: 25000,
+                    offersSubmitted: 10,
+                    userViews: 200,
                 },
             ];
 
@@ -60,16 +56,11 @@ describe('ApiService', () => {
             const mockData: ApiResponse = {
                 id: '1',
                 createdAt: '2024-01-01T00:00:00Z',
-                data: {
-                    json: {
-                        timestamp: 1704067200000,
-                        activeDeals: 100,
-                        newDeals: 5,
-                        averageDealValueUSD: 25000,
-                        offersSubmitted: 10,
-                        userViews: 200,
-                    },
-                },
+                activeDeals: 100,
+                newDeals: 5,
+                averageDealValueUSD: 25000,
+                offersSubmitted: 10,
+                userViews: 200,
             };
 
             mockedAxios.get.mockResolvedValue({ data: mockData });
@@ -102,16 +93,11 @@ describe('ApiService', () => {
             const mockData: ApiResponse = {
                 id: '1',
                 createdAt: '2024-01-01T00:00:00Z',
-                data: {
-                    json: {
-                        timestamp: 1704067200000,
-                        activeDeals: 100,
-                        newDeals: 5,
-                        averageDealValueUSD: 25000,
-                        offersSubmitted: 10,
-                        userViews: 200,
-                    },
-                },
+                activeDeals: 100,
+                newDeals: 5,
+                averageDealValueUSD: 25000,
+                offersSubmitted: 10,
+                userViews: 200,
             };
 
             mockedAxios.get.mockResolvedValue({ data: mockData });

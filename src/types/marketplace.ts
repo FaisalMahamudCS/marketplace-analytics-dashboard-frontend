@@ -10,9 +10,11 @@ export interface MarketplacePayload {
 export interface ApiResponse {
   id: string;
   createdAt: string;
-  data: {
-    json: MarketplacePayload;
-  };
+  activeDeals: number;
+  newDeals: number;
+  averageDealValueUSD: number;
+  offersSubmitted: number;
+  userViews: number;
 }
 
 export interface ChartDataPoint {
@@ -25,7 +27,9 @@ export interface ChartDataPoint {
 }
 
 export interface DashboardState {
-  responses: ApiResponse[];
+  responses: {
+    data: ApiResponse[];
+  };
   loading: boolean;
   error: string | null;
   lastUpdated: Date | null;

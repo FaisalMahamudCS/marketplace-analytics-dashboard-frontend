@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { ApiResponse } from '@/types/marketplace';
 
-const API_BASE_URL =  'http://localhost:3000';
+const API_BASE_URL =  process.env.API_BASE_URL || 'https://marketplace-analytics-backend-1.onrender.com';
 
 class ApiService {
   private baseURL: string;

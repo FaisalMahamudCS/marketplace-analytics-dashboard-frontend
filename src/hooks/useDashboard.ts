@@ -1,16 +1,13 @@
 'use client';
 
-import { isAny } from './../../node_modules/tailwind-merge/src/lib/validators';
-
 import { useState, useEffect, useCallback } from 'react';
 import { ApiResponse, DashboardState, ChartDataPoint } from '@/types/marketplace';
 import { apiService } from '@/lib/api';
 import { socketService } from '@/lib/socket';
-import { isArray } from 'util';
 
 export const useDashboard = () => {
   const [state, setState] = useState<DashboardState>({
-    responses: [],
+    responses: { data: [] },
     loading: true,
     error: null,
     lastUpdated: null,
@@ -23,7 +20,7 @@ export const useDashboard = () => {
       const responses = await apiService.fetchResponses();
       setState(prev => ({
         ...prev,
-        responses,
+        responses: { data: responses },
         loading: false,
         lastUpdated: new Date(),
       }));
@@ -37,7 +34,7 @@ export const useDashboard = () => {
   }, []);
 
   // Add new response(s) to state safely
-  const addNewResponse = useCallback((payload: any) => {
+  const addNewResponse = useCallback((payload: { data: ApiResponse | ApiResponse[] }) => {
     console.log('New response payload:', payload);
 
     const newResponses: ApiResponse[] = Array.isArray(payload.data)
@@ -73,7 +70,7 @@ export const useDashboard = () => {
   }, [fetchData, addNewResponse]);
 
   // Map responses to chart-friendly data
-  console.log("state.responses", Array.isArray(state.responses),state.responses);
+  console.log("state.responses", Array.isArray(state.responses?.data), state.responses);
   const chartData: ChartDataPoint[] =
     Array.isArray(state.responses?.data) && state.responses?.data?.length > 0
       ? state.responses?.data?.map(response => ({

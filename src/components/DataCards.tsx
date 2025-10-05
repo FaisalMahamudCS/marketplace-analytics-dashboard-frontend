@@ -9,7 +9,7 @@ interface DataCardsProps {
 }
 
 export const DataCards = ({ data, loading }: DataCardsProps) => {
-  console.log("card",data);
+  console.log("card", data);
   if (loading) {
     return (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -32,7 +32,7 @@ export const DataCards = ({ data, loading }: DataCardsProps) => {
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {data &&
         data.map((response, index) => (
-          <Card key={response._id || index} className="hover:shadow-md transition-shadow">
+          <Card key={response.id || index} className="hover:shadow-md transition-shadow">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
                 {new Date(response.createdAt).toLocaleString()}
