@@ -1,12 +1,12 @@
-const nextJest = require("next/jest");
+// jest.config.ts
+import nextJest from "next/jest";
+import type { Config } from "@jest/types";
 
 const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files
   dir: "./",
 });
 
-// Add any custom config to be passed to Jest
-const customJestConfig = {
+const customJestConfig: Config.InitialOptions = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testEnvironment: "jsdom",
   moduleNameMapper: {
@@ -32,5 +32,4 @@ const customJestConfig = {
   },
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig);
+export default createJestConfig(customJestConfig);
