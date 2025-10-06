@@ -30,7 +30,7 @@ describe('ApiService', () => {
             const result = await apiService.fetchResponses();
 
             expect(mockedAxios.get).toHaveBeenCalledWith(
-                `${process.env.API_BASE_URL}/responses`,
+                `${process.env.NEXT_PUBLIC_API_BASE_URL }/responses`,
                 { timeout: 10000, headers: { 'Content-Type': 'application/json' } }
             );
             expect(result).toEqual(mockData);
@@ -61,7 +61,7 @@ describe('ApiService', () => {
             const result = await apiService.fetchLatestResponse();
 
             expect(mockedAxios.get).toHaveBeenCalledWith(
-                `${process.env.API_BASE_URL}/responses/latest`,
+                `${process.env.NEXT_PUBLIC_API_BASE_URL }/responses/latest`,
                 { timeout: 10000, headers: { 'Content-Type': 'application/json' } }
             );
             expect(result).toEqual(mockData);

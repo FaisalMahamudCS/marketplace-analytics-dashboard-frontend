@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { ApiResponse } from '@/types/marketplace';
 
-const API_BASE_URL =  process.env.API_BASE_URL || 'https://marketplace-analytics-backend-1.onrender.com';
+const API_BASE_URL =  process.env.NEXT_PUBLIC_API_BASE_URL  || 'https://marketplace-analytics-backend-1.onrender.com';
 
 class ApiService {
   private baseURL: string;
@@ -49,7 +49,7 @@ class ApiService {
   async fetchLatestResponse(): Promise<ApiResponse> {
     try {
       const response: AxiosResponse<ApiResponse> = await axios.get(
-        `${process.env.API_BASE_URL}/responses/latest`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL }/responses/latest`,
         {
           timeout: 10000,
           headers: {
