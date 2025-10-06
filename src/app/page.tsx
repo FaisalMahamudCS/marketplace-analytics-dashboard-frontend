@@ -57,7 +57,7 @@ export default function Home() {
           loading={loading}
         />
 
-        <SummaryMetrics  data={getResponsesData(responses)} />
+        <SummaryMetrics data={getResponsesData(responses)} />
 
         <MarketplaceChart data={chartData} loading={loading} />
 
