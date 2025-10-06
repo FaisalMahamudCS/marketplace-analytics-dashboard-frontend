@@ -13,6 +13,8 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+    env:  # ← add this
+     NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}    
 
     steps:
       - name: Checkout code
@@ -45,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     env:
-      NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}   # ← make it available at build time
+       NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }} 
 
     steps:
       - name: Checkout code
@@ -74,7 +76,7 @@ jobs:
     needs: [test, build]
     if: github.ref == 'refs/heads/main'
     env:
-      NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}  # ← also available for deploy if needed
+      NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
 
     steps:
       - name: Checkout code
