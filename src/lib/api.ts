@@ -49,7 +49,7 @@ class ApiService {
   async fetchLatestResponse(): Promise<ApiResponse> {
     try {
       const response: AxiosResponse<ApiResponse> = await axios.get(
-        `${this.baseURL}/responses/latest`,
+        `${process.env.API_BASE_URL}/responses/latest`,
         {
           timeout: 10000,
           headers: {

@@ -167,7 +167,7 @@ This frontend expects a backend with these endpoints:
 - `GET /responses/latest` - Get the most recent response
 
 And WebSocket events:
-- `new_response` - Real-time data updates
+- `newResponse` - Real-time data updates
 
 The data should look like this:
 ```typescript
