@@ -7,6 +7,7 @@ import { DataCards } from '@/components/DataCards';
 import { StatusIndicator } from '@/components/StatusIndicator';
 import { ErrorMessage } from '@/components/ui/loading';
 import { ApiResponse } from '@/types/marketplace';
+import { SummaryMetrics } from '@/components/SummaryMetrics';
 
 // Helper function to get responses data safely (same as in useDashboard)
 const getResponsesData = (responses: ApiResponse[] | { data: ApiResponse[] }): ApiResponse[] => {
@@ -55,6 +56,8 @@ export default function Home() {
           onRefresh={refreshData}
           loading={loading}
         />
+
+        <SummaryMetrics  data={getResponsesData(responses)} />
 
         <MarketplaceChart data={chartData} loading={loading} />
 
