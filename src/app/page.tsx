@@ -8,7 +8,6 @@ import { StatusIndicator } from '@/components/StatusIndicator';
 import { ErrorMessage } from '@/components/ui/loading';
 import { ApiResponse } from '@/types/marketplace';
 import { SummaryMetrics } from '@/components/SummaryMetrics';
-import { Button } from '@/components/ui/button';
 
 // Helper function to get responses data safely (same as in useDashboard)
 const getResponsesData = (responses: ApiResponse[] | { data: ApiResponse[] }): ApiResponse[] => {
@@ -25,31 +24,7 @@ export default function Home() {
     isConnected,
     lastUpdated
   } = useDashboard();
-  console.log(responses);
-  function exportResponsesToCSV(rows: ApiResponse[]) {
-    if (!rows?.length) return;
-    const headers = ['id', 'createdAt', 'activeDeals', 'newDeals', 'averageDealValueUSD', 'offersSubmitted', 'userViews'];
-    const csv = [
-      headers.join(','),
-      ...rows.map(r => [
-        r.id,
-        new Date(r.createdAt).toISOString(),
-        r.activeDeals,
-        r.newDeals,
-        r.averageDealValueUSD,
-        r.offersSubmitted,
-        r.userViews
-      ].join(','))
-    ].join('\n');
 
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `responses_${Date.now()}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
   if (error) {
     return (
       <div className="min-h-screen p-4 bg-background">
@@ -75,15 +50,13 @@ export default function Home() {
           </p>
         </header>
 
-        <div className="flex items-center justify-between">
           <StatusIndicator
             isConnected={isConnected}
             lastUpdated={lastUpdated}
             onRefresh={refreshData}
             loading={loading}
           />
-        
-        </div>
+
 
         <SummaryMetrics data={getResponsesData(responses)} />
 
