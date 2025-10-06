@@ -2,6 +2,8 @@
 
 import { ApiResponse } from '@/types/marketplace';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { exportResponsesToCSV } from '@/lib/utils';
+import { Button } from './ui/button';
 
 interface DataTableProps {
   data: ApiResponse[];
@@ -29,7 +31,16 @@ export const DataTable = ({ data, loading }: DataTableProps) => {
   return (
     <Card className="border-border/50 shadow-sm">
       <CardHeader className="pb-4">
-        <CardTitle className="text-xl font-semibold text-foreground">Analytical Data</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-xl font-semibold text-foreground">Analytical Data</CardTitle>
+          <Button
+            variant="outline"
+            onClick={() => exportResponsesToCSV(data)}
+          >
+            Export CSV
+          </Button>
+        </div>
+
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
