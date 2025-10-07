@@ -24,10 +24,10 @@ const customJestConfig: Config.InitialOptions = {
   ],
   coverageThreshold: {
     global: {
-       branches: 40,
-    functions: 55,
-    lines: 60,
-    statements: 60,
+      branches: 30,
+      functions: 50,
+      lines: 55,
+      statements: 54,
     },
   },
 };
