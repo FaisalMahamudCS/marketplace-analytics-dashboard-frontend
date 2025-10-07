@@ -208,30 +208,6 @@ npm run start
 - **Multi-tenant**: Support multiple marketplace instances
 - **Mobile App**: React Native app for on-the-go monitoring
 
-## Contributing
 
-I'd love your help! Here's how to contribute:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/your-awesome-feature`)
-3. Make your changes
-4. Commit with a clear message (`git commit -m 'Add your awesome feature'`)
-5. Push to your branch (`git push origin feature/your-awesome-feature`)
-6. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - feel free to use it however you want!
-
-
-
-
-## Thanks!
-
-Big thanks to the amazing open source community:
-- Next.js team for the incredible framework
-- Tailwind CSS for making styling fun again
-- Recharts for beautiful, responsive charts
-- Socket.io for making real-time communication easy
 
 ---
